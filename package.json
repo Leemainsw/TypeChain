@@ -5,5 +5,10 @@
   "main": "index.js",
   "repository": "https://github.com/Leemainsw/TypeChain.git",
   "author": "Leesw_0811 <s2018s15@e-mirim.hs.kr>",
-  "license": "MIT"
+  "license": "MIT",
+  "scripts": {
+    "start": "node index.js",
+    "prestart": "tsc"
+    
+  }
 }
