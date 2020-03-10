@@ -27,6 +27,7 @@ const createNewBlock = (data) => {
     const newTimestamp = getNewTimeStamp();
     const newHash = Block.calculateBlockHash(newIndex, previousBlock.hash, newTimestamp, data);
     const newBlock = new Block(newIndex, newHash, previousBlock.hash, data, newTimestamp);
+    addBlock(newBlock);
     return newBlock;
 };
 console.log(createNewBlock("hello"));
@@ -54,4 +55,7 @@ const addBlock = (candidateBlock) => {
         blockchain.push(candidateBlock);
     }
 };
+createNewBlock("2 block");
+createNewBlock("3 block");
+createNewBlock("4 block");
 //# sourceMappingURL=index.js.map
