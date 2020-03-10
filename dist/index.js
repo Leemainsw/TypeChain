@@ -2,15 +2,20 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const CryptoJS = require("crypto-js");
 class Block {
-    constructor(index, hash, previousHash, data, timetamp) {
+    constructor(index, hash, previousHash, data, timestamp) {
         this.index = index;
         this.hash = hash;
         this.previousHash = previousHash;
         this.data = data;
-        this.timetamp = timetamp;
+        this.timestamp = timestamp;
     }
 }
-Block.calculateBlockHash = (index, previousHash, timetamp, data) => CryptoJS.SHA256(index + previousHash + timetamp + data).toString();
+Block.calculateBlockHash = (index, previousHash, timestamp, data) => CryptoJS.SHA256(index + previousHash + timestamp + data).toString();
+Block.validateStructure = (aBlock) => typeof aBlock.index === "number" &&
+    typeof aBlock.hash === "string" &&
+    typeof aBlock.previousHash === "string" &&
+    typeof aBlock.timestamp === "number" &&
+    typeof aBlock.data === "string";
 const genesisBlock = new Block(0, "2020202022020", "", "Hello", 123456);
 let blockchain = [genesisBlock]; //block만 추가 되도록
 const getBlockchain = () => blockchain;
@@ -26,4 +31,17 @@ const createNewBlock = (data) => {
 };
 console.log(createNewBlock("hello"));
 console.log(createNewBlock("bye bye"));
+const isBlockValid = (candidateBlock, previousBlock) => {
+    if (Block.validateStructure(candidateBlock)) {
+        return false;
+    }
+    else if (previousBlock.index + 1 !== candidateBlock.index) {
+        return false;
+    }
+    else if (previousBlock.hash !== candidateBlock.previousHash) {
+        return false;
+    }
+    else if () {
+    }
+};
 //# sourceMappingURL=index.js.map

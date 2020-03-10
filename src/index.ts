@@ -5,27 +5,34 @@ class Block{
     public hash: string;
     public previousHash: string;
     public data: string;
-    public timetamp: number;
+    public timestamp: number;
 
     static calculateBlockHash = (
         index:number, 
         previousHash:string, 
-        timetamp:number, 
+        timestamp:number, 
         data: string) :string => 
-        CryptoJS.SHA256(index + previousHash + timetamp + data).toString();
+        CryptoJS.SHA256(index + previousHash + timestamp + data).toString();
+
+        static validateStructure = (aBlock: Block) : boolean => 
+        typeof aBlock.index === "number" && 
+        typeof aBlock.hash === "string" && 
+        typeof aBlock.previousHash === "string" &&
+        typeof aBlock.timestamp === "number" &&
+        typeof aBlock.data === "string"; 
 
     constructor(
         index: number,
         hash: string,
         previousHash: string,
         data: string,
-        timetamp: number
+        timestamp: number
     ) {
         this.index = index;
         this.hash = hash;
         this.previousHash = previousHash;
         this.data = data;
-        this.timetamp = timetamp;
+        this.timestamp = timestamp;
     }
 }
 
@@ -50,5 +57,17 @@ const createNewBlock = (data:string) : Block => {
 
 console.log(createNewBlock("hello"));
 console.log(createNewBlock("bye bye"));
+
+const isBlockValid = (candidateBlock:Block, previousBlock: Block) : boolean => {
+    if(Block.validateStructure(candidateBlock)){
+        return false;
+    } else if(previousBlock.index + 1 !== candidateBlock.index){
+        return false;
+    }else if(previousBlock.hash !== candidateBlock.previousHash){
+        return false;
+    }else if(){
+
+    }
+};
 
 export {};
