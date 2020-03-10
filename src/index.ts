@@ -6,25 +6,26 @@
 // age = 19,
 // gender = "female";
 
-interface Human{ //ts에서만 작동됨 js에서는 작동안됨
-
-    name : string,
-    age : number,
-    gender: string
-}
-
-const person = {
-    name: "leeyeseul",
-    age: 19,
-    gender: "female"
+class Human{
+    public name: string;
+    public age: number;
+    public gender: string;
+    //생성자
+    constructor(name: string, age: number, gender?: string) {
+        this.name = name;
+        this.age = age;
+        this.gender = gender;
+    }
 };
+
+const lynn = new Human('Lynn', 18, "gemale");
 
 const sayHI = (person: Human):string =>{
     return `hello ${person.name}, you are ${person.age}, you are a ${person.gender}`;
     //console.log(`hello ${name}, you are ${age}, you are a ${gender}`);
 } 
 
-console.log(sayHI(person));
+console.log(sayHI(lynn));
 //만약 gender를 매개변수로 보내지 않는다면 js에서는 그냥 실행되는데 ts에서는 에러남
 // sayHI = (name,age,gender?) -> 에러 안나고 you are a undefined로 나옴
 export {}; 
